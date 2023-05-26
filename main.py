@@ -1,6 +1,6 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
-from DesarrolloPy.models import Item
+from models import Item
 
 class User(BaseModel):
     id: int 
@@ -59,10 +59,26 @@ async def get_items():
     return productos   
  
 #actualizar un producto
-@app.put("/items")
+@app.put("/items/")
 async def update_product(producto:Item):
-    for index, producto in enumerate in (productos):
-        if productos[]
+
+    for index, productoAGuardar in enumerate(productos):
+        if productoAGuardar.id == producto.id:
+            productos[index] = producto  
+        else:
+            return {'error':'No su puede actualizar el producto'} 
+            
+#a eliminar el producto
+@app.delete("/items/{id}")
+async def eliminate_product(id:int):
+    for index, productoAEliminar in enumerate(productos):
+        if productoAEliminar.id == id:
+            del productos[index]
+        else:
+            return {'error':'No su puede eliminar el producto'} 
+               
+        
+
 #usamos un metodo para la busqueda de productos
 # @app.post("/items/{item_id:int:int")
 # def search_product(Item_id):
